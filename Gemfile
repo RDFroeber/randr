@@ -1,13 +1,12 @@
 source 'https://rubygems.org'
 
+gem 'pry-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# Add pry for development only
-gem 'pry-rails'
-
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use postgresql as the database for Active Record
+gem 'pg'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -36,7 +35,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'
