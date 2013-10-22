@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Randr</title>
+  <title>RandR</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+   <header>
+      <h1><a href="">RandR</a></h1>
+      <nav>
+         <ul>
+            <li><%= link_to "Home", new_user_path %></li>
+            <li><%= link_to "Search",  new_author_path %></li>
+            <li><%= link_to "Favorites", user_path(@user) %></li>
+         </ul>
+      </nav>
+   </header>
 
 <%= yield %>
 

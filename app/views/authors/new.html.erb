@@ -1,0 +1,11 @@
+<h2>Find an Author</h2>
+
+
+<%= form_tag :method => :post do %>
+  <%= label_tag :author_name %>
+  <%= text_field_tag :name %><br />
+  <%= label_tag :book_title %>
+  <%= text_field_tag :title %><br />
+ 
+  <%= submit_tag "Search" %>
+<% end %>
