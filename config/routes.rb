@@ -7,7 +7,7 @@ Randr::Application.routes.draw do
    end
 
   # resources :books, only: [:show]
-  resources :favorites, only: [:create, :edit, :destroy]
+  # resources :favorites, only: [:create, :edit, :destroy]
 
   resource :session, only: [:new, :create, :destroy]
   
