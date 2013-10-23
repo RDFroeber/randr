@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
 
    has_secure_password
 
+   def author_alert
+      # TODO Add author_alert method to user model
+      self.authors.where(alert: true)
+   end
 end

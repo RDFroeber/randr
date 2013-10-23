@@ -17,14 +17,12 @@ class AuthorsController < ApplicationController
          'Sort' => 'salesrank'
          }
 
-      if params[:title].nil? && !params[:name].nil?
-         param['Author'] = params[:name]
-         
-      elsif !params[:title].nil? && !params[:name].nil?
-         param['Author'] = params[:name]
-      else
+      if !params[:title].nil? && params[:name].nil?
          param['Title'] = params[:title]
+      else
+         param['Author'] = params[:name]
       end
+
       @res = req.get(query: param)
 
       # Parsed response
