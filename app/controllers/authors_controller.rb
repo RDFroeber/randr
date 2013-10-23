@@ -1,8 +1,4 @@
 class AuthorsController < ApplicationController
-   def index
-      @authors = Authors.all
-   end
-
    def new
    end
 
@@ -47,15 +43,16 @@ class AuthorsController < ApplicationController
    end
 
    def create
+      binding.pry
       #if author.name already exists just use that data entry
       author_exist = Author.find_by(name: params[:name])
       if params[:name] == author_exist.name
-         @add_author == author_exist
+         @author = author_exist
       else
-         @add_author = Author.create(name: params[:name])
+         @author = Author.create(name: params[:name])
       end
 
-      redirect_to 'show'
+      redirect_to author_path(@author)
    end
 
    def show

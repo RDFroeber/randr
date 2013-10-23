@@ -4,10 +4,10 @@
    <p>Did you mean?</p>
    <ul>
       <% @choose_author.each do |author| %>
-      <li><%= link_to author, authors_path(name: author), :method => :post %></li>
+      <li><%= author %><%= button_to 'Add', action: 'create', name: author %></li>
       <% end %>
 <% else %>
-   <h3><%= link_to @new_author, authors_path(name: @new_author), :method => :post %></h3>
+   <h3><%= @new_author %><%= button_to 'Add', action: 'create', name: @new_author %></h3>
 <% end %>
    </ul>
 

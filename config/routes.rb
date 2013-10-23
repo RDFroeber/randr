@@ -1,6 +1,5 @@
 Randr::Application.routes.draw do
   resources :users, except: [:index] 
-  # remove unused paths
   resources :authors, only: [:new, :create, :show] do
       collection do
          get "search"
