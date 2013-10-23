@@ -4,5 +4,8 @@
    <%= link_to "Edit", edit_user_path(@user) %>
    
    <h3>My Favorites</h3>
-
-   <%= @user.authors  %>
+   <ul>
+   <% @user.authors.each do |author|  %>
+      <li><%= author.name %></li>
+   <% end %>
+   </ul>
