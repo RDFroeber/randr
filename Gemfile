@@ -55,4 +55,4 @@ gem 'multi_xml'
 gem 'googlebook'
 
 # Open email message with browser
-# gem 'letteropener'
+gem 'letter_opener', :group => :development

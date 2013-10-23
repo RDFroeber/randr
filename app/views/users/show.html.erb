@@ -2,6 +2,8 @@
 <p><%= @user.email %></p>
 
    <%= link_to "Edit", edit_user_path(@user) %>
+   <%= button_to "Email", user_path(@user), :method => :get, :name => 'email' %>
+   <%= debug params %>
    
    <h3>My Favorites</h3>
    <ul>

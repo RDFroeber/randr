@@ -8,6 +8,6 @@ class User < ActiveRecord::Base
 
    def author_alert
       # TODO Add author_alert method to user model
-      self.authors.where(alert: true)
+      alerted = self.authors.where(alert: true)
    end
 end

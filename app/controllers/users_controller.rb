@@ -18,6 +18,9 @@ class UsersController < ApplicationController
    end
 
    def show
+      if !params[:email].nil?
+           UserMailer.notify_email(current_user).deliver
+      end
    end
 
    def edit
