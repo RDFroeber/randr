@@ -48,7 +48,12 @@ class AuthorsController < ApplicationController
 
    def create
       #if author.name already exists just use that data entry
-      @add_author = Author.create(name: params[:name])
+      author_exist = Author.find_by(name: params[:name])
+      if params[:name] == author_exist.name
+         @add_author == author_exist
+      else
+         @add_author = Author.create(name: params[:name])
+      end
 
       redirect_to 'show'
    end

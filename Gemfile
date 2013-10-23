@@ -53,3 +53,6 @@ gem 'multi_xml'
 
 # GoogleBooks
 gem 'googlebook'
+
+# Open email message with browser
+# gem 'letteropener'
