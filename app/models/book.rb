@@ -1,4 +1,4 @@
 class Book < ActiveRecord::Base
-   belongs_to :authors
+   belongs_to :author
 
 end
