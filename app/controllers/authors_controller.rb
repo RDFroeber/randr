@@ -47,8 +47,10 @@ class AuthorsController < ApplicationController
    end
 
    def create
-      
-      redirect_to 'authors#show'
+      #if author.name already exists just use that data entry
+      @add_author = Author.create(name: params[:name])
+
+      redirect_to 'show'
    end
 
    def show

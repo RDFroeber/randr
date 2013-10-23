@@ -4,11 +4,11 @@
    <p>Did you mean?</p>
    <ul>
       <% @choose_author.each do |author| %>
-      <li><a href=""><%= author %></a></li>
+      <li><%= link_to author, authors_path(name: author), :method => :post %></li>
       <% end %>
 <% else %>
-   <p><%= @new_author %></p>
+   <h3><%= link_to @new_author, authors_path(name: @new_author), :method => :post %></h3>
 <% end %>
    </ul>
 
-   <a href="">None of these are correct</a>
+<%= link_to "None of these are correct", new_author_path %>
