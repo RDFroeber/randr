@@ -1,4 +1,6 @@
 class AuthorsController < ApplicationController
+    before_action :current_user
+
    def new
    end
 
@@ -43,14 +45,22 @@ class AuthorsController < ApplicationController
    end
 
    def create
-      binding.pry
+
       #if author.name already exists just use that data entry
-      author_exist = Author.find_by(name: params[:name])
-      if params[:name] == author_exist.name
-         @author = author_exist
-      else
-         @author = Author.create(name: params[:name])
-      end
+      @author = Author.find_or_initialize_by(name: params[:name])
+      @author.save
+      # binding.pry
+
+      # if params[:name] == author_exist.name
+      #    @author = author_exist
+      # else
+      #    @author = Author.create(name: params[:name])
+      # end
+
+      # Add author to user favorites
+      binding.pry
+      fav = Favorite.create(user_id: @current_user.id, author_id: @author.id)
+      # @current_user.favorites << fav
 
       redirect_to author_path(@author)
    end
