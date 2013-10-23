@@ -48,3 +48,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Vacuum for the Amazon Product Advertising API
 gem 'jruby-openssl', :platform => :jruby
+gem 'vacuum'
+gem 'multi_xml'
+
+# GoogleBooks
+gem 'googlebook'

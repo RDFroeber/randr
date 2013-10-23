@@ -1,0 +1,14 @@
+<h2>Search Results</h2>
+
+<% if @new_author. nil? %>
+   <p>Did you mean?</p>
+   <ul>
+      <% @choose_author.each do |author| %>
+      <li><a href=""><%= author %></a></li>
+      <% end %>
+<% else %>
+   <p><%= @new_author %></p>
+<% end %>
+   </ul>
+
+   <a href="">None of these are correct</a>

@@ -1,6 +1,6 @@
 class Favorite < ActiveRecord::Base
-   belongs_to :users
-   belongs_to :authors
+   belongs_to :user
+   belongs_to :author
    
    has_many :books, :through => :authors
 
