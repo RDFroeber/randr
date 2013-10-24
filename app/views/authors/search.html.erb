@@ -1,14 +1,15 @@
-<h2>Search Results</h2>
+<h2>Author Results</h2>
 
-<% if @new_author. nil? %>
+<% if @new_author.nil? && @new_title.nil? %>
    <p>Did you mean?</p>
    <ul>
       <% @choose_author.each do |author| %>
       <li><%= author %><%= button_to 'Add', action: 'create', name: author %></li>
       <% end %>
+      
+      <%= link_to "None of these are correct", new_author_path %>
+
 <% else %>
    <h3><%= @new_author %><%= button_to 'Add', action: 'create', name: @new_author %></h3>
 <% end %>
    </ul>
-
-<%= link_to "None of these are correct", new_author_path %>

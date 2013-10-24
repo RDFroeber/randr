@@ -19,6 +19,9 @@ class AuthorsController < ApplicationController
 
       if !params[:title].nil? && params[:name].nil?
          param['Title'] = params[:title]
+      elsif !params[:title].nil? && !params[:name].nil?
+         param['Author'] = params[:name]
+         param['Title'] = params[:title]
       else
          param['Author'] = params[:name]
       end
@@ -31,6 +34,8 @@ class AuthorsController < ApplicationController
 
       if parsed_response[0]['ItemAttributes']['Author'] == params[:name]
          @new_author = params[:name]
+      elsif parsed_response[0]['ItemAttributes']['Title'] == params[:title]
+         @new_author = parsed_response[0]['ItemAttributes']['Author']
       else
          choose_author = []
          parsed_response.each do |item|
@@ -49,8 +54,8 @@ class AuthorsController < ApplicationController
       # binding.pry
 
       # Add author to user favorites
-      ### Check for previous entries
-      fav = Favorite.create(user_id: @current_user.id, author_id: @author.id)
+      fav = Favorite.find_or_initialize_by(user_id: @current_user.id, author_id: @author.id)
+      fav.save
 
       redirect_to user_path(@current_user)
    end

@@ -7,13 +7,13 @@ class User < ActiveRecord::Base
    has_secure_password
 
    def author_alert
-      # @user.authors.each do |author|
-      #    if author.books.where(future_release: true)
-      #       author.author_alert = true
-      #    else
-      #       author.author_alert = false
-      #    end
-         
+      @user.authors.each do |author|
+         if author.books.where(future_release: true)
+            author.author_alert = true
+         else
+            author.author_alert = false
+         end
+      end
       alerts = self.authors.where(alert: true)
    end
 end

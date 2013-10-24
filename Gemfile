@@ -52,7 +52,7 @@ gem 'vacuum'
 gem 'multi_xml'
 
 # GoogleBooks
-gem 'googlebook'
+gem 'googlebooks'
 
 # Open email message with browser
 gem 'letter_opener', :group => :development
