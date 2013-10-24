@@ -3,16 +3,15 @@
 <% if @new_book.nil? %>
    <p>Did you mean?</p>
    <ul>
-      <% @choose_book.each do |object| %>
-         <% book = object['ItemAttributes'] %>
-         <li><%= book['Title'] %> by <%= book['Author'] %></li>
-         <%= button_to 'Add', action: 'create', title: book['Title'], author: book['Author'], isbn: book['ISBN'] %>
+      <% @choose_book.each do |book| %>
+         <li><%= book['ItemAttributes']['Title'] %> by <%= book['ItemAttributes']['Author'] %></li>
+         <%= button_to 'Add', action: 'create', title: book['ItemAttributes']['Title'], author: book['ItemAttributes']['Author'] %>
       <% end %>
 
       <%= link_to "None of these are correct", new_book_path %>
 <% else %>
    <h3><%= @new_book['ItemAttributes']['Title'] %> by <%= @new_book['ItemAttributes']['Author'] %></h3>
-   <%= button_to 'Add', action: 'create', title: @new_book['ItemAttributes']['Title'], author: @new_book['ItemAttributes']['Author'], isbn: @new_book['ItemAttributes']['ISBN']%>
+   <%= button_to 'Add', action: 'create', title: @new_book['ItemAttributes']['Title'], author: @new_book['ItemAttributes']['Author'] %>
 <% end %>
    </ul>
 

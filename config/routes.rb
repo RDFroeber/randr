@@ -1,5 +1,10 @@
 Randr::Application.routes.draw do
-  resources :users, except: [:index] 
+  resources :users, except: [:index] do
+      member do
+         get "library"
+      end
+   end
+  
   resources :authors, only: [:new, :create, :show] do
       collection do
          get "search"

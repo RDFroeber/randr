@@ -23,6 +23,10 @@ class UsersController < ApplicationController
       end
    end
 
+   def library
+      @user = current_user
+   end
+
    def edit
    end
 

@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+   before_action :current_user
+
    def new
    end
 
@@ -10,7 +12,7 @@ class BooksController < ApplicationController
          end
       
       param = {'Operation' => 'ItemSearch', 
-         'ResponseGroup' => 'ItemAttributes,Images',
+         'ResponseGroup' => 'ItemAttributes',
          'SearchIndex' => 'Books', 
          'Sort' => 'salesrank'
          }
@@ -32,9 +34,9 @@ class BooksController < ApplicationController
 
       @choose_book = []
       parsed_response.each do |book_obj|
-         if book_obj['ItemAttributes']['Title'] == params[:title]
+         if book_obj['ItemAttributes']['Title'] == params[:title] && !book_obj['ItemAttributes']['ISBN'].nil?
             @new_book = book_obj
-         else
+         elsif !book_obj['ItemAttributes']['ISBN'].nil?
             @choose_book.push(book_obj)
          end
       end
@@ -46,23 +48,44 @@ class BooksController < ApplicationController
       #if book already exists just use that data entry
       author_id = Author.find_by(name: params[:author]).id
       book = Book.find_or_initialize_by(title: params[:title], author_id: author_id)
-      # TODO Impliment add book method and save book method
+
+      req = Vacuum.new
+      path = File.join(Rails.root, 'config', 'amazon.yml')
+         if File.exists?(path)
+           req.configure(YAML.load_file(path))
+         end
+
+      param = {'Operation' => 'ItemSearch', 
+         'ResponseGroup' => 'ItemAttributes,Images',
+         'SearchIndex' => 'Books', 
+         'Title' => params[:title]
+         }
       
-      # @add_book = book(isbn: , published_date: , img_url_sm: , img_url_lg: , buy_link:)
-      # binding.pry
-      # @book.save
-      # binding.pry
+      res = req.get(query: param)
+         
+      # Parsed response
+      response = Response.new(res).to_h
+      book_res = response['ItemSearchResponse']['Items']['Item'][0]
 
-      # # Add author to user favorites
-      # fav = Favorite.find_or_initialize_by(user_id: @current_user.id, author_id: @author.id)
-      # fav.save
+      book.isbn =  book_res['ItemAttributes']['ISBN']
+      book.published_date = book_res['ItemAttributes']['PublicationDate']
+      if !book_res["MediumImage"].nil?
+            book.img_url_sm = book_res["MediumImage"]["URL"]
+         end
+         if !book_res["LargeImage"].nil?
+            book.img_url_lg = book_res["LargeImage"]["URL"]
+         end
+      book.save
+      
+      # binding.pry
+      # Add book to user library
+      lib = Library.find_or_initialize_by(user_id: @current_user.id, book_id: book.id)
+      lib.save
 
-      # redirect_to user_path(@current_user)
-      redirect_to book_path(@book)
+      redirect_to library_users_path(@current_user)
    end
 
    def show
-
    end
 
 end

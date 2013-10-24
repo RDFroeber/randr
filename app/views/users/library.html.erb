@@ -1,0 +1,6 @@
+<h2>My Library</h2>
+
+<% @user.books.each do |book| %>
+   <p>Title: <%= book.title %></p>
+   <p>Author: <%= book.author.name %></p>
+<% end %>

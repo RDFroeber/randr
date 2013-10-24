@@ -3,11 +3,12 @@
 
    <%= link_to "Edit", edit_user_path(@user) %>
    <%= button_to "Email", user_path(@user), :method => :get, :name => 'email' %>
-   <%= debug params %>
    
-   <h3>My Favorites</h3>
+   <h3>My Favorite Authors</h3>
    <ul>
    <% @user.authors.each do |author|  %>
       <li><%= author.name %></li>
    <% end %>
    </ul>
+
+   <%= link_to "My Library", library_user_path(@user) %>
