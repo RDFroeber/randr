@@ -14,7 +14,12 @@
             <li><%= link_to "Home", new_user_path %></li>
             <li><%= link_to "Find an Author",  new_author_path %></li>
             <li><%= link_to "Find a Book",  new_book_path %></li>
-            <li><%= link_to "Login", new_session_path %></li>
+            <% if !logged_in? %>
+              <li><%= link_to "Login", new_session_path %></li>
+            <% else %>
+              <li><%= link_to "My Account", user_path(current_user) %></li>
+              <li><%= link_to "Logout", session_path, :method => :delete %></li>
+            <% end %>
          </ul>
       </nav>
    </header>
