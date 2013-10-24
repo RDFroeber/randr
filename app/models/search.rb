@@ -46,7 +46,7 @@ class Search
       param = {'Operation' => 'ItemLookup', 
          'IdType' => 'ISBN',
          'ResponseGroup' => 'ItemAttributes,Images',
-         'SearchIndex' => 'Books', 
+         'SearchIndex' => 'Books'
          }
 
       @lookup.each do |isbn|
@@ -55,18 +55,23 @@ class Search
          
          # Parsed response
          response = Response.new(res).to_h
-         new_book = response['ItemLookupResponse']['Items']['Item']
-         new_book.each do |info|
-            title = info["ItemAttributes"]["Title"]
-            author = info["ItemAttributes"]["Author"]
-            isbn = info["ItemAttributes"]["ISBN"]
-            published_date = info["ItemAttributes"]["PublicationDate"]
-            img_url_sm = info["MediumImage"]["URL"]
-            img_url_lg = info["LargeImage"]["URL"]
 
-            author_id = Author.find_by(name: author).id
-            Book.create(title: title, isbn: isbn, published_date: published_date, img_url_sm: img_url_sm, img_url_lg: img_url_lg, future_release: true)
+         info = response['ItemLookupResponse']['Items']['Item']
+
+         title = info["ItemAttributes"]["Title"]
+         author = info["ItemAttributes"]["Author"]
+         isbn = info["ItemAttributes"]["ISBN"]
+         published_date = info["ItemAttributes"]["PublicationDate"]
+         if !info["MediumImage"].nil?
+            img_url_sm = info["MediumImage"]["URL"]
          end
+         if !info["LargeImage"].nil?
+            img_url_lg = info["LargeImage"]["URL"]
+         end
+
+         author_id = Author.find_by(name: author).id
+         # Book.find_or_initialize_by(title: title, author_id: author_id)
+         Book.create(title: title, author_id: author_id, isbn: isbn, published_date: published_date, img_url_sm: img_url_sm, img_url_lg: img_url_lg, future_release: true)
       end
    end
 
@@ -74,4 +79,4 @@ end
 
 # lookup = Search.new
 # search = lookup.new_favorites
-# Search.save_favorites(search)
+# lookup.save_favorites(search)

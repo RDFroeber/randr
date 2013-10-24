@@ -2,6 +2,7 @@
 
 <% if @new_author.nil? && @new_title.nil? %>
    <p>Did you mean?</p>
+   <p>Notice: If the author you are searching for has different ways of writing their name, please add all instances of the author's name for the most acurate results.</p>
    <ul>
       <% @choose_author.each do |author| %>
       <li><%= author %><%= button_to 'Add', action: 'create', name: author %></li>
