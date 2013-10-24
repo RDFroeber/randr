@@ -1,0 +1,9 @@
+<h3>Upcoming Book Releases</h3>
+
+<% @user.authors.each do |author| %>
+   <% books = author.books.where(future_release: true) %>
+      <% books.each do |book| %>
+         <p><%= book.title %></p>
+         <p><%= book.published_date %></p><br />
+      <% end %>
+<% end %>

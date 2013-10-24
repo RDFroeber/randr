@@ -1,6 +1,9 @@
-<h2>Author Results</h2>
+<h2>Add Author to My Favorites</h2>
 
-<% if @new_author.nil? && @new_title.nil? %>
+<% if !@no_results.nil? %>
+   <p><%= @no_results %></p>
+   <%= link_to "Search again", new_author_path %>
+<% elsif @no_results.nil? && @new_author.nil? && @new_title.nil? %>
    <p>Did you mean?</p>
    <p>Notice: If the author you are searching for has different ways of writing their name, please add all instances of the author's name for the most acurate results.</p>
    <ul>
@@ -9,7 +12,6 @@
       <% end %>
       
       <%= link_to "None of these are correct", new_author_path %>
-
 <% else %>
    <h3><%= @new_author %><%= button_to 'Add', action: 'create', name: @new_author %></h3>
 <% end %>

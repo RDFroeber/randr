@@ -31,12 +31,14 @@ class AuthorsController < ApplicationController
       # Parsed response
       response = Response.new(@res).to_h
       parsed_response = response['ItemSearchResponse']['Items']['Item']
-
-      if parsed_response[0]['ItemAttributes']['Author'] == params[:name]
+      binding.pry
+      if parsed_response.nil?
+         @no_results = "Sorry, that author could not be found. Please try a different search."
+      elsif parsed_response[0]['ItemAttributes']['Author'] == params[:name]
          @new_author = params[:name]
       elsif parsed_response[0]['ItemAttributes']['Title'] == params[:title]
          @new_author = parsed_response[0]['ItemAttributes']['Author']
-      else
+      else   
          choose_author = []
          parsed_response.each do |item|
             choose_author.push(item['ItemAttributes']['Author'])

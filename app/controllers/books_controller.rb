@@ -34,7 +34,10 @@ class BooksController < ApplicationController
 
       @choose_book = []
       parsed_response.each do |book_obj|
-         if book_obj['ItemAttributes']['Title'] == params[:title] && !book_obj['ItemAttributes']['ISBN'].nil?
+ 
+         if !book_obj.include?('ItemAttributes') 
+            @no_info = "Sorry, there is not enough information for that title."
+         elsif book_obj['ItemAttributes']['Title'] == params[:title] && !book_obj['ItemAttributes']['ISBN'].nil?
             @new_book = book_obj
          elsif !book_obj['ItemAttributes']['ISBN'].nil?
             @choose_book.push(book_obj)

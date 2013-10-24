@@ -1,6 +1,8 @@
-<h2>Book Results</h2>
+<h2>Add a Book to My Library</h2>
 
-<% if @new_book.nil? %>
+<% if !@no_info.nil? %>
+   <p><%= @no_info %></p>
+<% elsif @new_book.nil? %>
    <p>Did you mean?</p>
    <ul>
       <% @choose_book.each do |book| %>
