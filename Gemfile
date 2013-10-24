@@ -54,3 +54,5 @@ gem 'multi_xml'
 
 # Open email message with browser
 gem 'letter_opener', :group => :development
+
+gem 'rails_12factor'

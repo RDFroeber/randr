@@ -3,11 +3,15 @@ Randr::Application.routes.draw do
       member do
          get "library"
       end
+      resources :favorites, only: [:destroy]
    end
   
   resources :authors, only: [:new, :create, :show] do
       collection do
          get "search"
+      end
+      collection do
+         get "remove"
       end
    end
 

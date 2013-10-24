@@ -31,7 +31,7 @@ class AuthorsController < ApplicationController
       # Parsed response
       response = Response.new(@res).to_h
       parsed_response = response['ItemSearchResponse']['Items']['Item']
-      binding.pry
+
       if parsed_response.nil?
          @no_results = "Sorry, that author could not be found. Please try a different search."
       elsif parsed_response[0]['ItemAttributes']['Author'] == params[:name]
@@ -66,5 +66,10 @@ class AuthorsController < ApplicationController
       @author = Author.find(params[:id])
    end
 
+   def remove
+      Favorite.find_by(author_id: params[:author_id]).delete
+      
+      redirect_to user_path(@current_user)
+   end
 
 end
