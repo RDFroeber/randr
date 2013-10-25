@@ -1,18 +1,21 @@
-<h2><%= @user.name %></h2>
-<p><%= @user.email %></p>
+<div class="favorites">
+<h2><%= @user.name %> | <%= @user.email %></h2>
 
-   <%= link_to "Edit", edit_user_path(@user) %>
-   <%= button_to "Email", user_path(@user), :method => :get, :name => 'email' %>
-   
+
+   <%= link_to "Edit Account", edit_user_path(@user) %>
+   <%= button_to "Email", user_path(@user), :method => :get, :name => 'email', class: "user_button" %>
+
+
    <h3>My Favorite Authors</h3>
    <ul>
    <% @user.authors.each do |author|  %>
       <li><%= author.name %></li>
       <% fav = Favorite.find_by(author_id: author.id) %>
-      <%= button_to 'Remove', user_favorite_path(@user,fav), method: :delete %>
+      <%= button_to 'Remove', user_favorite_path(@user,fav), method: :delete, class: "user_button" %>
    <% end %>
    </ul>
+</div>
 
-   <%= link_to "My Library", library_user_path(@user) %>
-
+<div class="upcoming green_back">
    <%= render 'upcoming' %>
+</div>

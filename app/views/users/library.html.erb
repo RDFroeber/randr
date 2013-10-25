@@ -1,6 +1,9 @@
+<div class="green_back center">
 <h2>My Library</h2>
 
-<% @user.books.each do |book| %>
-   <p>Title: <%= book.title %></p>
-   <p>Author: <%= book.author.name %></p>
-<% end %>
+<ul>
+   <% @user.books.each do |book| %>
+      <li><span><%= book.title %> by <%= book.author.name %></span></li>
+   <% end %>
+</ul>
+</div>

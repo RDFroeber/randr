@@ -8,23 +8,23 @@ class UsersController < ApplicationController
    end
 
    def create
-      @user = User.new(user_params)
+    @user = User.new(user_params)
 
-      if @user.save
-         redirect_to user_path(@user)
-      else
-         render :new
-      end
+    if @user.save
+      redirect_to user_path(@user)
+    else
+      render :new
+    end
    end
 
    def show
-      if !params[:email].nil?
-           UserMailer.notify_email(current_user).deliver
-      end
+    if !params[:email].nil?
+      UserMailer.notify_email(current_user).deliver
+    end
    end
 
    def library
-      @user = current_user
+    @user = current_user
    end
 
    def edit

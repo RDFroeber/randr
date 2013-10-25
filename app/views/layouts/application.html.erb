@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>RandR</title>
+  <link href='http://fonts.googleapis.com/css?family=Alex+Brush|Raleway+Dots' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
    <header>
-      <h1><%= link_to "RandR", new_user_path %></a></h1>
+      <h1 class="logo">RandR</h1>
       <nav>
          <ul>
             <li><%= link_to "Home", new_user_path %></li>
@@ -18,6 +19,7 @@
               <li><%= link_to "Login", new_session_path %></li>
             <% else %>
               <li><%= link_to "My Account", user_path(current_user) %></li>
+              <li><%= link_to "My Library", library_user_path(current_user) %></li>
               <li><%= link_to "Logout", session_path, :method => :delete %></li>
             <% end %>
          </ul>

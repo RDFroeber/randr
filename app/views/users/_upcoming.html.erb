@@ -1,9 +1,15 @@
 <h3>Upcoming Book Releases</h3>
 
 <% @user.authors.each do |author| %>
+   <% if author.books.where(future_release: true).empty? %>
+   <% else %>
+      <h4><%= author.name %>:</h4>
+   <% end %>
    <% books = author.books.where(future_release: true) %>
-      <% books.each do |book| %>
-         <p><%= book.title %></p>
-         <p><%= book.published_date %></p><br />
-      <% end %>
+   <ol>
+   <% books.each do |book| %>
+      <li><%= book.title %><br /><br />
+      Release Date: <%= book.published_date %></li>
+   <% end %>
+   </ol>
 <% end %>

@@ -1,4 +1,4 @@
-<h2>Sign-up</h2>
+
 
 <% unless @user.errors.none? %>
   <% @user.errors.full_messages.each do |msg| %>
@@ -6,15 +6,17 @@
   <% end %>
 <% end %>
 
-<%= form_for @user do |f| %>
-  <%= f.label :name %>
+<%= form_for @user, :html => {:class => "form_block"} do |f| %>
+<h2>Sign-up</h2>
+  <%= f.label :name %><br />
   <%= f.text_field :name %><br />
-  <%= f.label :email %>
+  <%= f.label :email %><br />
   <%= f.email_field :email %><br />
-  <%= f.label :password %>
+  <%= f.label :password %><br />
   <%= f.password_field :password %><br />
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %><br />
+  <%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %>
 
   <%= f.submit %>
+  <p class="login">Already have an account? <%= link_to "Login", new_session_path %></p>
 <% end %>

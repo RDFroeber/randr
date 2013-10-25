@@ -1,46 +1,213 @@
+/***
+* RandR Color Codes
+* #87cdb0 - seafoam
+* #74748c - pale purple
+* #303033 - cool grey
+*
+***/
+
+
 /* Header styles for layout */
- header {
+header {
+   position: absolute;
+   margin: 0 auto;
    width: 100%;
    height: 200px;
+   z-index: 100;
    /*background: url(<%= asset_path 'train_tracks.png' %>) repeat-x;*/
 }
+header h1.logo {
+   position: fixed;
+   top: 50px;
+   left: 43%;
+   padding: 25px 30px 25px 25px;
+   background-color: #ffffff;
+   font-family: 'Alex Brush', Helvetica, Arial, sans-serif;
+   font-size: 40px; 
+   text-align: center;
+   z-index: 111;
+   -moz-border-radius: 50%;
+   -webkit-border-radius: 50%;
+   border-radius: 50%;
+   border: solid 2px #87cdb0;
+}
 nav {
+   position: fixed;
+   height: 110px;
+   background-color: #303033;
    width: 100%;
+   top: 0;
+   left: 0;
+   right: 0;
+   font-family: 'Raleway Dots', Helvetica, Arial, sans-serif;
 }
 nav ul {
-   float: right;
+   margin: 35px 20px;
+   text-align: center;
 }
 nav ul li {
    display: inline;
+   padding: 30px;
+   font-size: 20px;
 }
-nav ul li:nth-child(1) {
-   background-image: url(<%= asset_path 'home.png' %>) no-repeat;
-}
-nav ul li:nth-child(2) {
-   background-image: url(<%= asset_path 'search.png' %>) no-repeat;
-}
-nav ul li:nth-child(1) {
-   background-image: url(<%= asset_path 'fav.png' %>) no-repeat;
-}
-nav h1 a {
-
+header h1 a {
+   text-align: center;
+   color: #74748c;
 }
 nav ul li a:link {
-   color: blue;
+   text-decoration: none;
+   color: #ffffff;
 }
 nav ul li a:visited {
-
+   color: #ffffff;
 }
 nav ul li a:hover {
-
+   color: #87cdb0;
 }
 nav ul li a:active {
-
+   color: #87cdb0;
 }
 
 /* Body Styles */
+body {
+   font-family: 'Times New Roman', Times, serif;
+   font-size: 16px;
+   color: #303033;
+}
 div#wrapper {
+   position: absolute;
+   top: 225px;
    margin: 0 auto;
-   width: 90%;
+   width: 95%;
    padding: 20px;
+}
+/*div.welcome h1 {
+   position: relative;
+   top: -60px;
+   left: 50px;
+   margin: 0 auto;
+   width: 50%;
+   font-family: 'Alex Brush', Helvetica, Arial, sans-serif;
+   font-size: 40px; 
+   -moz-transform:rotate(-20deg);
+   -webkit-transform:rotate(-20deg);
+   transform:rotate(-20deg);
+}*/
+/* Links */
+a:link {
+   text-decoration: none;
+   color: #87cdb0;
+}
+a:visited {
+   color: #87cdb0;
+}
+a:hover {
+   color: #74748c;
+}
+a:active {
+   color: #74748c;
+}
+form a:link {
+   text-decoration: none;
+   color: #ffffff;
+}
+form a:visited {
+   color: #ffffff;
+}
+form a:hover {
+   color: #74748c;
+}
+form a:active {
+   color: #74748c;
+}
+
+form.form_block {
+   margin: 0 auto;
+   width: 25%;
+   background-color: #87cdb0;
+   padding: 20px;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   border-radius: 10px;
+}
+form input[type=text], form input[type=email],
+form input[type=password] {
+   display: block;
+   margin: 5px 0 10px 0;
+   line-height: 18px;
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   border-radius: 2px;
+   webkit-box-shadow: inset 1px 1px #999999;
+   box-shadow: inset 1px 1px #999999;
+}
+form input[type=submit] {
+   position: relative;
+   top: -50px;
+   margin: 50px 10px -20px 10px;
+   float: right;
+   padding: 10px 20px;
+   color: #303033;
+   background-color: #74748c;
+   font-size: 14px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   border-radius: 5px;
+}
+form input[type=submit]:hover {
+   color: #ffffff;
+   background-color: #303033;
+}
+div.green_back {
+   width: 25%;
+   background-color: #87cdb0;
+   padding: 20px;
+   -moz-border-radius: 10px;
+   -webkit-border-radius: 10px;
+   border-radius: 10px;
+}
+div.center {
+   margin: 0 auto;
+}
+div.favorites {
+   margin-left: 20%;
+   float: left;
+   width: 30%;
+}
+div.favorites ul {
+   padding: 20px 0 10px 20px; 
+}
+div.upcoming {
+   float: left;
+   width: 30%;
+}
+form input.user_button{
+   margin: 10px;
+   top: -35px;
+   left: 170px;
+   float: none;
+   padding: 5px 10px;
+   color: #303033;
+   background-color: #74748c;
+   font-size: 12px;
+   -moz-border-radius: 5px;
+   -webkit-border-radius: 5px;
+   border-radius: 5px;
+}
+p.login {
+   clear: both;
+}
+div.green_back ul li {
+   list-style-type: circle;
+   color: #ffffff;
+   margin: 20px 0;
+}
+span {
+   color: #303033;
+}
+ol {
+   padding: 0 0 10px 20px;
+}
+ol li {
+   padding: 10px 0;
 }

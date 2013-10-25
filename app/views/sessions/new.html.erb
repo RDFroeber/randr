@@ -1,9 +1,10 @@
-<h2>Login</h2>
-<%= form_tag session_path, method: :post  do %>
+<%= form_tag session_path, method: :post, :class => "form_block"  do %>
+   <h2>Login</h2>
    <%= label_tag :email %>
    <%= email_field_tag :email %><br />
    <%= label_tag :password %>
    <%= password_field_tag :password %><br />
 
    <%= submit_tag "Login" %>
+   <p class="login"></p>
 <% end %>
