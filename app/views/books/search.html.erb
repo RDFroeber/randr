@@ -6,7 +6,11 @@
    <p>Did you mean?</p>
    <ul>
       <% @choose_book.each do |book| %>
+         <% if book['ItemAttributes']['Author'].is_a? Enumerable  %>
+         <li><%= book['ItemAttributes']['Title'] %> by <%= book['ItemAttributes']['Author'].join(", ") %></li>
+         <% else %>
          <li><%= book['ItemAttributes']['Title'] %> by <%= book['ItemAttributes']['Author'] %></li>
+         <% end %> 
          <%= button_to 'Add', action: 'create', title: book['ItemAttributes']['Title'], author: book['ItemAttributes']['Author'] %>
       <% end %>
 
