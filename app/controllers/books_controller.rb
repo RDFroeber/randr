@@ -92,7 +92,7 @@ class BooksController < ApplicationController
       
       # binding.pry
       # Add book to user library
-      lib = Library.find_or_initialize_by(user_id: @current_user.id, book_id: book.id)
+      lib = Library.find_or_initialize_by(user_id: @current_user.id, book_id: @book.id)
       lib.save
 
       redirect_to library_user_path(@current_user)
