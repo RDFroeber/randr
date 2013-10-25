@@ -7,13 +7,18 @@
 
 
    <h3>My Favorite Authors</h3>
+   <% if @user.authors.empty? %>
+      <p>You have no saved authors...</p>
+      <%= link_to "Add a New Favorite", new_author_path %>
+   <% else %>
    <ul>
-   <% @user.authors.each do |author|  %>
-      <li><%= author.name %></li>
-      <% fav = Favorite.find_by(author_id: author.id) %>
-      <%= button_to 'Remove', user_favorite_path(@user,fav), method: :delete, class: "user_button" %>
-   <% end %>
+      <% @user.authors.each do |author|  %>
+         <li><%= author.name %></li>
+         <% fav = Favorite.find_by(author_id: author.id) %>
+         <%= button_to 'Remove', user_favorite_path(@user,fav), method: :delete, class: "user_button" %>
+      <% end %>
    </ul>
+    <% end %>
 </div>
 
 <div class="upcoming green_back">
