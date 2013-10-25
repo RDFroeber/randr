@@ -2,10 +2,11 @@ class Search
 
    def new_favorites
       req = Vacuum.new
-      path = File.join(Rails.root, 'config', 'amazon.yml')
-         if File.exists?(path)
-           req.configure(YAML.load_file(path))
-         end
+      req.configure(
+         aws_access_key_id:     Figaro.env.amazon_access,
+         aws_secret_access_key: Figaro.env.amazon_secret,
+         associate_tag:         Figaro.env.amazon_tag,
+      )
       
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes',
@@ -38,10 +39,11 @@ class Search
 
    def save_favorites(lookup)
       req = Vacuum.new
-      path = File.join(Rails.root, 'config', 'amazon.yml')
-         if File.exists?(path)
-           req.configure(YAML.load_file(path))
-         end
+      req.configure(
+         aws_access_key_id:     Figaro.env.amazon_access,
+         aws_secret_access_key: Figaro.env.amazon_secret,
+         associate_tag:         Figaro.env.amazon_tag,
+      )
       
       param = {'Operation' => 'ItemLookup', 
          'IdType' => 'ISBN',

@@ -8,7 +8,8 @@
    <ul>
    <% @user.authors.each do |author|  %>
       <li><%= author.name %></li>
-      <%= button_to 'Remove', user_favorite_path(@user.id,author.id), method: :delete %>
+      <% fav = Favorite.find_by(author_id: author.id) %>
+      <%= button_to 'Remove', user_favorite_path(@user,fav), method: :delete %>
    <% end %>
    </ul>
 

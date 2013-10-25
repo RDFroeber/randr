@@ -6,10 +6,11 @@ class BooksController < ApplicationController
 
    def search
       req = Vacuum.new
-      path = File.join(Rails.root, 'config', 'amazon.yml')
-         if File.exists?(path)
-           req.configure(YAML.load_file(path))
-         end
+      req.configure(
+         aws_access_key_id:     Figaro.env.amazon_access,
+         aws_secret_access_key: Figaro.env.amazon_secret,
+         associate_tag:         Figaro.env.amazon_tag,
+      )
       
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes',
@@ -54,10 +55,11 @@ class BooksController < ApplicationController
       @book = Book.find_or_initialize_by(title: params[:title], author_id: author.id)
 
       req = Vacuum.new
-      path = File.join(Rails.root, 'config', 'amazon.yml')
-         if File.exists?(path)
-           req.configure(YAML.load_file(path))
-         end
+      req.configure(
+         aws_access_key_id:     Figaro.env.amazon_access,
+         aws_secret_access_key: Figaro.env.amazon_secret,
+         associate_tag:         Figaro.env.amazon_tag,
+      )
 
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes,Images',

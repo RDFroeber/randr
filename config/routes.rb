@@ -3,6 +3,7 @@ Randr::Application.routes.draw do
       member do
          get "library"
       end
+      # DELETE /users/:user_id/favorites/:id
       resources :favorites, only: [:destroy]
    end
   

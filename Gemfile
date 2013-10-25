@@ -56,3 +56,5 @@ gem 'multi_xml'
 gem 'letter_opener', :group => :development
 
 gem 'rails_12factor'
+
+gem 'figaro'
