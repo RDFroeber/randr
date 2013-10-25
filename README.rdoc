@@ -1,28 +1,21 @@
 == RandR
+* GitHub: https://github.com/RDFroeber/randr
+* Heroku: http://randr.herokuapp.com
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby version 2.0.0
 
-Things you may want to cover:
+RandR is a web app designed to help users keep track of their favorite authors, upcoming book releases of said authors, and their favorite books using data from Amazon's Product Advertising API.
 
-* Ruby version
+= Functionality:
+* User Login/Logout
+* Author Search
+* Book Search
+* Saved Authors in My Favorites
+* Saved Books in My Library
+* Email Notifications of Upcoming Book Releases
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+= Gems:
+* Vacuum
+* Multi_XML
+* Figaro
+* Letter Opener (development testing)

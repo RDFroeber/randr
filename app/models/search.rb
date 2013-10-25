@@ -78,7 +78,3 @@ class Search
    end
 
 end
-
-# lookup = Search.new
-# search = lookup.new_favorites
-# lookup.save_favorites(search)

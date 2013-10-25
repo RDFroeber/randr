@@ -4,7 +4,20 @@
     <meta charset='UTF-8' />
   </head>
   <body>
-    <h1>Welcome to example.com, <%= @user.name %></h1>
-    <p>Thanks for joining and have a great day!</p>
+    <h1>Hi <%= @user.name %>,</h1>
+    <p>This is your friendly RandR reminder about upcoming book relases for your favorite authors. Happy reading!</p>
+    <% @user.authors.each do |author| %>
+      <% if author.books.where(future_release: true).empty? %>
+      <% else %>
+         <h4><%= author.name %>:</h4>
+      <% end %>
+      <% books = author.books.where(future_release: true) %>
+      <ol>
+      <% books.each do |book| %>
+         <li><%= book.title %><br /><br />
+         Release Date: <%= book.published_date %></li>
+      <% end %>
+      </ol>
+   <% end %>
   </body>
 </html>
