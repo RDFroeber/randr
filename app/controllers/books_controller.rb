@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
    before_action :current_user
+   before_action :logged_in?, :authenticated!, only: [:create]
 
    def new
    end
