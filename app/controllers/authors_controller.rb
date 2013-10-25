@@ -61,6 +61,10 @@ class AuthorsController < ApplicationController
       fav = Favorite.find_or_initialize_by(user_id: @current_user.id, author_id: @author.id)
       fav.save
 
+      lookup = Search.new
+      search = lookup.new_favorites
+      lookup.save_favorites(search)
+   
       redirect_to user_path(@current_user)
    end
 
