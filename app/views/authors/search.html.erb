@@ -17,10 +17,10 @@
       <% end %>
       
       <p><%= link_to "None of these are correct", new_author_path %></p><br />
+      <p>Notice: If the author you are searching for has different ways of writing their name, please add all instances of the author's name for the most acurate results.</p>
 <% else %>
    <h3><%= @new_author %></h3>
    <%= button_to 'Add', class: "user_button", action: 'create', name: @new_author %>
 <% end %>
    </ul>
-   <p>Notice: If the author you are searching for has different ways of writing their name, please add all instances of the author's name for the most acurate results.</p>
 </div>

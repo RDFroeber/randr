@@ -51,30 +51,78 @@ class Search
          'SearchIndex' => 'Books'
          }
 
-      @lookup.each do |isbn|
-         param['ItemId'] = isbn
+      if !@lookup.is_a? Enumerable
+         param['ItemId'] = @lookup.isbn
          res = req.get(query: param)
-         
-         # Parsed response
-         response = Response.new(res).to_h
+            
+            # Parsed response
+            response = Response.new(res).to_h
 
-         info = response['ItemLookupResponse']['Items']['Item']
+            info = response['ItemLookupResponse']['Items']['Item']
 
-         title = info["ItemAttributes"]["Title"]
-         author = info["ItemAttributes"]["Author"]
-         isbn = info["ItemAttributes"]["ISBN"]
-         published_date = info["ItemAttributes"]["PublicationDate"]
-         if !info["MediumImage"].nil?
-            img_url_sm = info["MediumImage"]["URL"]
+            title = info["ItemAttributes"]["Title"]
+            author = info["ItemAttributes"]["Author"]
+            isbn = info["ItemAttributes"]["ISBN"]
+            published_date = info["ItemAttributes"]["PublicationDate"]
+            if !info["MediumImage"].nil?
+               @img_url_sm = info["MediumImage"]["URL"]
+            end
+            if !info["LargeImage"].nil?
+               @img_url_lg = info["LargeImage"]["URL"]
+            end
+
+            author_id = Author.find_by(name: author).id
+            # binding.pry
+
+            @book = Book.find_or_initialize_by(title: title, author_id: author_id)
+
+            @book.isbn = isbn
+            @book.published_date = published_date
+            if !@img_url_sm.nil?
+               @book.img_url_sm = @img_url_sm 
+            end
+            if !@img_url_lg.nil?
+               @book.img_url_lg = @img_url_sm 
+            end
+      else
+         @lookup.each do |isbn|
+            param['ItemId'] = isbn
+            res = req.get(query: param)
+            
+            # Parsed response
+            response = Response.new(res).to_h
+
+            info = response['ItemLookupResponse']['Items']['Item']
+
+            title = info["ItemAttributes"]["Title"]
+            author = info["ItemAttributes"]["Author"]
+            isbn = info["ItemAttributes"]["ISBN"]
+            published_date = info["ItemAttributes"]["PublicationDate"]
+            if !info["MediumImage"].nil?
+               @img_url_sm = info["MediumImage"]["URL"]
+            end
+            if !info["LargeImage"].nil?
+               @img_url_lg = info["LargeImage"]["URL"]
+            end
+
+            author_id = Author.find_by(name: author).id
+            # binding.pry
+
+            @book = Book.find_or_initialize_by(title: title, author_id: author_id)
+
+            @book.isbn = isbn
+            @book.published_date = published_date
+            if !@img_url_sm.nil?
+               @book.img_url_sm = @img_url_sm 
+            end
+            if !@img_url_lg.nil?
+               @book.img_url_lg = @img_url_sm 
+            end
+
+            # Book.create(title: title, author_id: author_id, isbn: isbn, published_date: published_date, img_url_sm: img_url_sm, img_url_lg: img_url_lg, future_release: true)
          end
-         if !info["LargeImage"].nil?
-            img_url_lg = info["LargeImage"]["URL"]
-         end
-
-         author_id = Author.find_by(name: author).id
-         # Book.find_or_initialize_by(title: title, author_id: author_id)
-         Book.create(title: title, author_id: author_id, isbn: isbn, published_date: published_date, img_url_sm: img_url_sm, img_url_lg: img_url_lg, future_release: true)
       end
+      @book.save
    end
 
 end
