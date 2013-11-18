@@ -72,7 +72,7 @@ class Search
             end
 
             author_id = Author.find_by(name: author).id
-            # binding.pry
+            binding.pry
 
             @book = Book.find_or_initialize_by(title: title, author_id: author_id)
 
