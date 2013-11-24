@@ -1,10 +1,12 @@
 class User < ActiveRecord::Base
-   validates :email, presence: true,  uniqueness: true
+   # has_many :favorites
+   # has_many :authors, :through => :favorites
+   # has_one :library
+   # has_many :books, :through => :library
 
-   has_many :favorites
-   has_many :authors, :through => :favorites
-   has_one :library
-   has_many :books, :through => :library
+   validates :name, :email, presence: true
+   validates :email, uniqueness: {case_sensitive: false}
+   validates :password, :password_confirmation, presence: true, length: { minimum: 6 }
 
    has_secure_password
 
