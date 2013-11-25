@@ -108,16 +108,43 @@ describe User do
   end
 
   describe "#favorites" do
+    before do
+      user.save
+    end
 
+    it "has many favorites" do 
+      pending("#favorites")
+    end
   end
+
   describe "#authors" do
+    before do
+      user.save
+    end
 
+    it "has many authors through favorites" do 
+      pending("#authors")
+    end
   end
+
   describe "#library" do
+    before do
+      user.save
+    end
 
+    it "has a library" do 
+      pending("#library")
+    end
   end
-  describe "#books" do
 
+  describe "#books" do
+    before do
+      user.save
+    end
+
+    it "has many books through a library" do 
+      pending("#books")
+    end
   end
 
   
