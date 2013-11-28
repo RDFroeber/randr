@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
-   # has_many :favorites
-   # has_many :authors, :through => :favorites
-   # has_one :library
-   # has_many :books, :through => :library
+   has_many :favorites
+   has_many :authors, :through => :favorites
+   has_one :library
+   has_many :books, :through => :library
 
    validates :name, :email, presence: true
    validates :email, uniqueness: {case_sensitive: false}

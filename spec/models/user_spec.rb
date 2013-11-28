@@ -9,143 +9,26 @@ describe User do
     end
   end
 
-  describe "#name" do
-    context "with a name" do
-      before {user.save}
+  describe "validations" do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:email) }
+    it { should validate_uniqueness_of(:email).case_insensitive }
 
-      it "is valid" do
-        expect(user).to be_valid
-      end
-    end
-
-    context "without a name" do
-      it "is not valid" do
-        user.name = nil
-        expect(user).to have(1).errors_on(:name)
-      end
+    context "password" do
+      it { should validate_presence_of(:password) }
+      it { should validate_presence_of(:password_confirmation) }
+      it { should have_secure_password }
+      it { should ensure_length_of(:password).is_at_least(6) }
     end
   end
 
-  describe "#email" do
-    context "with an email" do
-      before {user.save}
-
-      it "is valid" do
-        expect(user).to be_valid
-      end
-    end
-
-    context "without an email" do
-      it "is not valid" do
-        user.email = nil
-        expect(user).to have(1).errors_on(:email)
-      end
-    end
-
-    context "with a taken email" do
-      before {user.save}
-
-      let!(:twin) do
-        User.create(name: "Twin Raleigh", email: "raleigh@d.me", password: "The Twin", password_confirmation: "The Twin")
-      end
-
-      it "is not valid" do
-        expect(twin).to have(1).errors_on(:email)
-      end
-    end
-
-    context "with a taken email, different case" do
-      before {user.save}
-
-      let!(:twin) do
-        User.create(name: "Twin Raleigh", email: "RALeigh@D.me", password: "The Twin", password_confirmation: "The Twin")
-      end
-
-      it "is not valid" do
-        expect(twin).to have(1).errors_on(:email)
-      end
-    end
+  describe "associations" do
+    before { user.save }
+    
+    it { should have_many(:favorites) }
+    it { should have_many(:authors).through(:favorites) }
+    it { should have_one(:library) }
+    it { should have_many(:books).through(:library) }
   end
 
-  describe "#password_digest" do
-    context "with a password and password_confirmation" do
-      before {user.save}
-
-      it "is valid" do
-        expect(user).to be_valid
-      end
-    end
-
-    context "without a password and password_confirmation" do
-      it "is not valid" do
-        user.password = nil
-        user.password_confirmation = nil
-        expect(user).to_not be_valid
-      end
-    end 
-
-    context "when password confirmation is nil" do
-      it "is not valid" do
-        user.password_confirmation = nil
-        expect(user).to_not be_valid
-      end
-    end
-
-    context "when password does not match confirmation" do
-      it "is not valid" do
-        user.password_confirmation = "mismatch"
-        expect(user).to_not be_valid
-      end
-    end
-
-    context "when a password is too short" do
-      before { user.password = user.password_confirmation = "r" * 5 }
-
-      it "is not valid" do
-          expect(user).to_not be_valid
-      end
-    end
-  end
-
-  describe "#favorites" do
-    before do
-      user.save
-    end
-
-    it "has many favorites" do 
-      pending("#favorites")
-    end
-  end
-
-  describe "#authors" do
-    before do
-      user.save
-    end
-
-    it "has many authors through favorites" do 
-      pending("#authors")
-    end
-  end
-
-  describe "#library" do
-    before do
-      user.save
-    end
-
-    it "has a library" do 
-      pending("#library")
-    end
-  end
-
-  describe "#books" do
-    before do
-      user.save
-    end
-
-    it "has many books through a library" do 
-      pending("#books")
-    end
-  end
-
-  
 end

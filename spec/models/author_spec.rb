@@ -1,20 +1,23 @@
 require 'spec_helper'
 
 describe Author do
-  let(:author) {Author.new()}
+  let(:author) {Author.new(name: "J.K. Rowling")}
 
   describe "::new" do
-    it "can create a new user" do 
+    it "can create a new author" do 
       expect(author).to be_an_instance_of(Author)
     end
   end
 
-  describe "#name" do
-    context "with a name" do
-      before {author.save}
+  describe "validations" do
+    it { should validate_presence_of(:name) }
+  end
 
-      it "is valid" do
-        expect(author).to be_valid
-      end
-    end
+  describe "associations" do
+    before { author.save }
+    
+    it { should have_many(:favorites) }
+    it { should have_many(:books) }
+  end
+
 end
