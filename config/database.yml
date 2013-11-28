@@ -3,7 +3,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: randr_db
+  database: randr_dev
   pool: 5
   username: RaleighD
   password:
@@ -11,7 +11,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: randr_db
+  database: randr_test
   pool: 5
   username: RaleighD
   password:

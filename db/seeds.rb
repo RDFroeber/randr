@@ -3,12 +3,12 @@
 #
 
 # Delete ALL prior entries in database
-Author.destroy_all
-Favorite.destroy_all
-Book.destroy_all
+# Author.destroy_all
+# Favorite.destroy_all
+# Book.destroy_all
 
-author = Author.create(name: "J.K. Rowling", alive: true)
-author.book = Book.create(title: "Harry Potter and the Goblet of Fire", author_id: 1, isbn: , published_date:, img_url_sm: "", img_url_lg: "", buy_link: "")
+# author = Author.create(name: "J.K. Rowling", alive: true)
+# author.book = Book.create(title: "Harry Potter and the Goblet of Fire", author_id: 1, isbn: , published_date:, img_url_sm: "", img_url_lg: "", buy_link: "")
 
-user = User.first
-myfav = Favorite.create(user_id: user, author_id: 1, notify: true)
+# user = User.first
+# myfav = Favorite.create(user_id: user, author_id: 1, notify: true)
