@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>RandR</title>
-  <link href='http://fonts.googleapis.com/css?family=Alex+Brush|Raleway+Dots' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -15,12 +14,12 @@
             <li><%= link_to "Home", new_user_path %></li>
             <li><%= link_to "Find an Author",  new_author_path %></li>
             <li><%= link_to "Find a Book",  new_book_path %></li>
-            <% if !logged_in? %>
-              <li><%= link_to "Login", new_session_path %></li>
-            <% else %>
+            <% if logged_in? %>
               <li><%= link_to "My Account", user_path(current_user) %></li>
               <li><%= link_to "My Library", library_user_path(current_user) %></li>
               <li><%= link_to "Logout", session_path, :method => :delete %></li>
+            <% else %>
+              <li><%= link_to "Login", new_session_path %></li>
             <% end %>
          </ul>
       </nav>
