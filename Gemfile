@@ -50,6 +50,10 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # Use rspec for testing
 gem 'rspec-rails', group: :test
 
+gem 'shoulda-matchers', group: :test
+
+gem 'nyan-cat-formatter', group: :test
+
 # Vacuum for the Amazon Product Advertising API
 gem 'jruby-openssl', :platform => :jruby
 gem 'vacuum'
