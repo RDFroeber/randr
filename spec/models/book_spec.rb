@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Book do
-  let(:book) {Book.new(title: "J.K. Rowling")}
+  let(:author) {Author.create(name: "Kim Harrison")}
+  let(:book) {Book.new(title: "The Undead Pool", author_id: author.id, isbn: "978-0061957932", published_date: "2014-02-25")}
 
   describe "::new" do
     it "can create a new book" do 
@@ -17,8 +18,6 @@ describe Book do
   end
 
   describe "associations" do
-    before { book.save }
-    
     it { should belong_to(:author) }
     it { should have_many(:libraries) }
   end

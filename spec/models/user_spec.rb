@@ -15,16 +15,14 @@ describe User do
     it { should validate_uniqueness_of(:email).case_insensitive }
 
     context "password" do
+      it { should have_secure_password }
       it { should validate_presence_of(:password) }
       it { should validate_presence_of(:password_confirmation) }
-      it { should have_secure_password }
       it { should ensure_length_of(:password).is_at_least(6) }
     end
   end
 
   describe "associations" do
-    before { user.save }
-    
     it { should have_many(:favorites) }
     it { should have_many(:authors).through(:favorites) }
     it { should have_one(:library) }
