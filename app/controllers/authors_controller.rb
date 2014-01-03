@@ -1,13 +1,12 @@
 class AuthorsController < ApplicationController
-    before_action :current_user
-    before_action :logged_in?, :authenticated!, only: [:create]
+   before_action :current_user
+   before_action :logged_in?, :authenticated!, only: [:create]
 
    def new
    end
 
    def search
       req = Vacuum.new
-
       req.configure(
          aws_access_key_id:     Figaro.env.amazon_access,
          aws_secret_access_key: Figaro.env.amazon_secret,

@@ -12,7 +12,6 @@ class BooksController < ApplicationController
          aws_secret_access_key: Figaro.env.amazon_secret,
          associate_tag:         Figaro.env.amazon_tag,
       )
-      
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes',
          'SearchIndex' => 'Books', 
