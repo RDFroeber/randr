@@ -22,7 +22,11 @@ Randr::Application.routes.draw do
       end
    end
 
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy] do
+    collection do
+      get "welcome"
+    end
+  end
   
-  root :to => 'users#new'
+  root :to => "sessions#welcome"
 end

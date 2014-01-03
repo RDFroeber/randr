@@ -11,14 +11,15 @@
       <h1 class="logo">RandR</h1>
       <nav>
          <ul>
-            <li><%= link_to "Home", new_user_path %></li>
+            <li><%= link_to "Home", welcome_session_path %></li>
             <li><%= link_to "Find an Author",  new_author_path %></li>
-            <li><%= link_to "Find a Book",  new_book_path %></li>
             <% if logged_in? %>
+              <li><%= link_to "Find a Book",  new_book_path %></li>
               <li><%= link_to "My Account", user_path(current_user) %></li>
               <li><%= link_to "My Library", library_user_path(current_user) %></li>
               <li><%= link_to "Logout", session_path, :method => :delete %></li>
             <% else %>
+              <li><%= link_to "Sign Up", new_user_path %></li>
               <li><%= link_to "Login", new_session_path %></li>
             <% end %>
          </ul>
