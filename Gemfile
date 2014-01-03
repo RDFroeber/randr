@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
+# Ruby Version
 ruby '2.0.0'
-
-gem 'pry-rails', group: [:development, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -47,13 +46,6 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# Use rspec for testing
-gem 'rspec-rails', group: :test
-
-gem 'shoulda-matchers', group: :test
-
-gem 'nyan-cat-formatter', group: :test
-
 # Vacuum for the Amazon Product Advertising API
 gem 'jruby-openssl', :platform => :jruby
 gem 'vacuum'
@@ -63,5 +55,18 @@ gem 'multi_xml'
 gem 'letter_opener', :group => :development
 
 gem 'rails_12factor'
+
+group :development, :test do
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'shoulda-matchers'
+  gem 'nyan-cat-formatter'
+  gem 'simplecov', :require => false
+end
 
 gem 'figaro'
