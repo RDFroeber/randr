@@ -43,9 +43,10 @@ class AuthorsController < ApplicationController
          choose_author = []
          parsed_response.each do |item|
             choose_author.push(item['ItemAttributes']['Author'])
-            @choose_author = choose_author.uniq
+            @choose_author = choose_author.uniq.compact!
          end
       end
+      binding.pry
 
       render :search
    end
