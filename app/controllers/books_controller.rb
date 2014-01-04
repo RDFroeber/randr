@@ -40,7 +40,7 @@ class BooksController < ApplicationController
             @no_info = "Sorry, there is not enough information for that title."
          elsif book_obj['ItemAttributes']['Title'] == params[:title] && !book_obj['ItemAttributes']['ISBN'].nil?
             @new_book = book_obj
-         elsif !book_obj['ItemAttributes']['ISBN'].nil? && !book_obj['ItemAttributes']['ISBN'].nil? && !book_obj['ItemAttributes']['PublicationDate'].nil?
+         elsif !book_obj['ItemAttributes']['ISBN'].nil? && !book_obj['ItemAttributes']['ISBN'].nil? && !book_obj['ItemAttributes']['PublicationDate'].nil? && !book_obj['ItemAttributes']['Author'].nil?
             @choose_book.push(book_obj)
          end
       end
@@ -65,13 +65,15 @@ class BooksController < ApplicationController
          'ResponseGroup' => 'ItemAttributes,Images',
          'SearchIndex' => 'Books', 
          'Title' => params[:title]
-         }
+      }
       
       res = req.get(query: param)
          
       # Parsed response
       response = Response.new(res).to_h
-      book_res = response['ItemSearchResponse']['Items']['Item'][0]
+      book_res = response['ItemSearchResponse']['Items']['Item']
+
+      # binding.pry
 
       @book.isbn =  book_res['ItemAttributes']['ISBN']
       if !book_res['ItemAttributes']['PublicationDate'].nil?
@@ -79,11 +81,13 @@ class BooksController < ApplicationController
       elsif !book_res['ItemAttributes']['ReleaseDate'].nil?
          @book.published_date = book_res['ItemAttributes']['ReleaseDate']
       else
-         @book.published_date = "2000-01-01"
+         @book.published_date = "0000-00-00"
       end
+
       if !book_res["MediumImage"].nil?
          @book.img_url_sm = book_res["MediumImage"]["URL"]
       end
+
       if !book_res["LargeImage"].nil?
          @book.img_url_lg = book_res["LargeImage"]["URL"]
       end
