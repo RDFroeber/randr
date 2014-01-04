@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-   before_action :current_user
+   before_action :current_user, :config_amz, :config_goodr
    before_action :logged_in?, :authenticated!, only: [:create]
 
    def new
@@ -7,11 +7,7 @@ class BooksController < ApplicationController
 
    def search
       req = Vacuum.new
-      req.configure(
-         aws_access_key_id:     Figaro.env.amazon_access,
-         aws_secret_access_key: Figaro.env.amazon_secret,
-         associate_tag:         Figaro.env.amazon_tag,
-      )
+      
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes',
          'SearchIndex' => 'Books', 
@@ -55,11 +51,6 @@ class BooksController < ApplicationController
       @book = Book.find_or_initialize_by(title: params[:title], author_id: author.id)
 
       req = Vacuum.new
-      req.configure(
-         aws_access_key_id:     Figaro.env.amazon_access,
-         aws_secret_access_key: Figaro.env.amazon_secret,
-         associate_tag:         Figaro.env.amazon_tag,
-      )
 
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes,Images',

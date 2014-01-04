@@ -1,11 +1,8 @@
 class Search
+   before_action :config_amz, :config_goodr
+
    def new_favorites
       req = Vacuum.new
-      req.configure(
-         aws_access_key_id:     Figaro.env.amazon_access,
-         aws_secret_access_key: Figaro.env.amazon_secret,
-         associate_tag:         Figaro.env.amazon_tag,
-      )
       
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes',
@@ -39,11 +36,6 @@ class Search
 
    def save_favorites(lookup)
       req = Vacuum.new
-      req.configure(
-         aws_access_key_id:     Figaro.env.amazon_access,
-         aws_secret_access_key: Figaro.env.amazon_secret,
-         associate_tag:         Figaro.env.amazon_tag,
-      )
       
       param = {'Operation' => 'ItemLookup', 
          'IdType' => 'ISBN',
