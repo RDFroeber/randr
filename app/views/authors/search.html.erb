@@ -9,7 +9,7 @@
    <ul>
       <% @choose_author.each do |author| %>
       <% if author.is_a? Enumerable %>
-      <li><%= author.join(", ") %>
+      <li><%= author.to_sentence %>
       <% else %>
       <li><%= author %>
       <% end %> 

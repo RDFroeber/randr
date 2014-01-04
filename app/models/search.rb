@@ -1,5 +1,4 @@
 class Search
-
    def new_favorites
       req = Vacuum.new
       req.configure(
@@ -15,6 +14,7 @@ class Search
          }
 
       user = User.first
+      # FIXME custom users?
 
       @lookup = []
       user.authors.each do |author|
@@ -33,7 +33,7 @@ class Search
             end 
          end
       end
-      # binding.pry
+
       return @lookup
    end
 
@@ -71,8 +71,9 @@ class Search
                @img_url_lg = info["LargeImage"]["URL"]
             end
 
-            author_id = Author.find_by(name: author).id
-            binding.pry
+            author_id = Author.find_by(name: author).id if !author.is_a? Enumerable
+            # binding.pry 
+            # FIXME Can't find an author when auhor is an array
 
             @book = Book.find_or_initialize_by(title: title, author_id: author_id)
 
@@ -104,9 +105,9 @@ class Search
             if !info["LargeImage"].nil?
                @img_url_lg = info["LargeImage"]["URL"]
             end
-
+            binding.pry
             author_id = Author.find_by(name: author).id
-            # binding.pry
+            
 
             @book = Book.find_or_initialize_by(title: title, author_id: author_id)
 

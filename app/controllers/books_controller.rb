@@ -73,8 +73,6 @@ class BooksController < ApplicationController
       response = Response.new(res).to_h
       book_res = response['ItemSearchResponse']['Items']['Item']
 
-      # binding.pry
-
       @book.isbn =  book_res['ItemAttributes']['ISBN']
       if !book_res['ItemAttributes']['PublicationDate'].nil?
          @book.published_date = book_res['ItemAttributes']['PublicationDate']

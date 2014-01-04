@@ -51,6 +51,9 @@ gem 'jruby-openssl', :platform => :jruby
 gem 'vacuum'
 gem 'multi_xml'
 
+# Goodreads API
+gem 'goodreads', '~> 0.3.0'
+
 # Open email message with browser
 gem 'letter_opener', :group => :development
 

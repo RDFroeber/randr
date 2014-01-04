@@ -42,9 +42,9 @@ class AuthorsController < ApplicationController
       else   
          choose_author = []
          parsed_response.each do |item|
-            if item['ItemAttributes']['Author'] != "Various"
+            if item['ItemAttributes']['Author'] != "Various" && item['ItemAttributes']['Binding'] != "Kindle Edition" && item['ItemAttributes']['Binding'] != "Audio CD" && item['ItemAttributes']['Binding'] != "Unknown Binding"
                choose_author.push(item['ItemAttributes']['Author'])
-               @choose_author = choose_author.uniq.compact!
+               @choose_author = choose_author.uniq.compact
             end
          end
       end
@@ -55,7 +55,6 @@ class AuthorsController < ApplicationController
       #if author.name already exists just use that data entry
       @author = Author.find_or_initialize_by(name: params[:name])
       @author.save
-      # binding.pry
 
       # Add author to user favorites
       fav = Favorite.find_or_initialize_by(user_id: @current_user.id, author_id: @author.id)
