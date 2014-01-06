@@ -1,5 +1,5 @@
 class AuthorsController < ApplicationController
-   before_action :current_user, :config_amz, :config_goodr
+   before_action :current_user, :config_goodr
    before_action :logged_in?, :authenticated!, only: [:create]
 
    def new
@@ -7,6 +7,7 @@ class AuthorsController < ApplicationController
 
    def search
       req = Vacuum.new
+      config_amz(req)
       
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes',
@@ -39,7 +40,9 @@ class AuthorsController < ApplicationController
          choose_author = []
          parsed_response.each do |item|
             if item['ItemAttributes']['Author'] != "Various" && item['ItemAttributes']['Binding'] != "Kindle Edition" && item['ItemAttributes']['Binding'] != "Audio CD" && item['ItemAttributes']['Binding'] != "Unknown Binding"
-               choose_author.push(item['ItemAttributes']['Author'])
+               if !item['ItemAttributes']['Author'].is_a? Enumerable
+                  choose_author.push(item['ItemAttributes']['Author'])
+               end
                @choose_author = choose_author.uniq.compact
             end
          end
@@ -53,14 +56,14 @@ class AuthorsController < ApplicationController
       @author.save
 
       # Add author to user favorites
-      fav = Favorite.find_or_initialize_by(user_id: @current_user.id, author_id: @author.id)
+      fav = Favorite.find_or_initialize_by(user_id: current_user.id, author_id: @author.id)
       fav.save
 
       lookup = Search.new
       search = lookup.new_favorites
       lookup.save_favorites(search)
    
-      redirect_to user_path(@current_user)
+      redirect_to user_path(current_user)
    end
 
    def show
@@ -70,7 +73,7 @@ class AuthorsController < ApplicationController
    def remove
       Favorite.find_by(author_id: params[:author_id]).delete
       
-      redirect_to user_path(@current_user)
+      redirect_to user_path(current_user)
    end
 
 end

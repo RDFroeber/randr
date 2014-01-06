@@ -8,11 +8,9 @@
    <p>Did you mean?</p>
    <ul>
       <% @choose_author.each do |author| %>
-      <% if author.is_a? Enumerable %>
-      <li><%= author.to_sentence %>
-      <% else %>
+      
       <li><%= author %>
-      <% end %> 
+    
       <%= button_to 'Add', action: 'create', name: author %></li>
       <% end %>
       

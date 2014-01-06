@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-   before_action :current_user, :config_amz, :config_goodr
+   before_action :current_user, :config_goodr
    before_action :logged_in?, :authenticated!, only: [:create]
 
    def new
@@ -7,6 +7,7 @@ class BooksController < ApplicationController
 
    def search
       req = Vacuum.new
+      config_amz(req)
       
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes',
@@ -51,6 +52,7 @@ class BooksController < ApplicationController
       @book = Book.find_or_initialize_by(title: params[:title], author_id: author.id)
 
       req = Vacuum.new
+      config_amz(req)
 
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes,Images',

@@ -1,8 +1,9 @@
-class Search
-   before_action :config_amz, :config_goodr
+class Search < ApplicationController
+   before_action :current_user, :config_goodr
 
    def new_favorites
       req = Vacuum.new
+      config_amz(req)
       
       param = {'Operation' => 'ItemSearch', 
          'ResponseGroup' => 'ItemAttributes',
@@ -10,8 +11,7 @@ class Search
          'Sort' => '-publication_date'
          }
 
-      user = User.first
-      # FIXME custom users?
+      user = current_user
 
       @lookup = []
       user.authors.each do |author|
@@ -36,6 +36,7 @@ class Search
 
    def save_favorites(lookup)
       req = Vacuum.new
+      config_amz(req)
       
       param = {'Operation' => 'ItemLookup', 
          'IdType' => 'ISBN',
@@ -63,7 +64,7 @@ class Search
                @img_url_lg = info["LargeImage"]["URL"]
             end
 
-            author_id = Author.find_by(name: author).id if !author.is_a? Enumerable
+            !author.is_a? Enumerable ? author_id = Author.find_by(name: author[0]).id : author_id = Author.find_by(name: author).id
             # binding.pry 
             # FIXME Can't find an author when auhor is an array
 
