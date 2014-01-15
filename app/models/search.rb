@@ -1,7 +1,7 @@
 class Search < ApplicationController
-   before_action :current_user, :config_goodr
+   before_action :config_goodr
 
-   def new_favorites
+   def new_favorites(the_user)
       req = Vacuum.new
       config_amz(req)
       
@@ -11,10 +11,8 @@ class Search < ApplicationController
          'Sort' => '-publication_date'
          }
 
-      user = current_user
-
       @lookup = []
-      user.authors.each do |author|
+      the_user.authors.each do |author|
          if author.alive
             param['Author'] = author.name
             res = req.get(query: param)
@@ -24,8 +22,17 @@ class Search < ApplicationController
             books = response['ItemSearchResponse']['Items']['Item']
             
             books.each do |book|
-               if !book["ItemAttributes"]["ISBN"].nil? && book["ItemAttributes"]["Binding"] != "Audio CD" && book["ItemAttributes"]["Binding"] != "Kindle Edition" && book["ItemAttributes"]["Languages"]["Language"][0]["Name"] == "English" && Date.parse(book["ItemAttributes"]["PublicationDate"]) >= Date.today
-               @lookup.push(book["ItemAttributes"]["ISBN"])
+               if book["ItemAttributes"]["Binding"] != "Audio CD" && book["ItemAttributes"]["Binding"] != "Kindle Edition" 
+                  unless book["ItemAttributes"]["PublicationDate"].nil?
+                     if Date.parse(book["ItemAttributes"]["PublicationDate"]) >= Date.today
+                        begin  
+                           @isbn = book["ItemAttributes"]["ISBN"]
+                        rescue  
+                           @isbn = book["ItemAttributes"]["EISBN"]
+                        end
+                        @lookup.push(@isbn)
+                     end
+                  end
                end  
             end 
          end
@@ -98,7 +105,7 @@ class Search < ApplicationController
             if !info["LargeImage"].nil?
                @img_url_lg = info["LargeImage"]["URL"]
             end
-            binding.pry
+            # binding.pry
             author_id = Author.find_by(name: author).id
             
 
