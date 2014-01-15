@@ -84,7 +84,35 @@ div#wrapper {
    width: 95%;
    padding: 20px;
 }
-div.welcome h1 {
+div.welcome {
+   position: relative;
+   width: 25%;
+   height: 826px;
+   padding: 20px;
+   -moz-border-radius: 20px;
+   -webkit-border-radius: 20px;
+   -o-border-radius: 20px;
+   border-radius: 20px;
+}
+.first {
+   margin: -50px 40px 0 70px;
+   background: url(<%= asset_path 'men_reading.jpg' %>) repeat-x;
+   background-position: 0 0;
+   float: left;
+}
+.second {
+   margin: -50px 40px 0 40px;
+   background: url(<%= asset_path 'men_reading.jpg' %>) repeat-x;
+   background-position: 840px 0;
+   float: left;
+}
+.third {
+   margin: -50px 40px 0 40px;
+   background: url(<%= asset_path 'men_reading.jpg' %>) repeat-x;
+   background-position: 440px 0;
+   float: left;
+}
+/*div.welcome h1 {
    position: relative;
    top: -60px;
    left: 50px;
@@ -92,7 +120,7 @@ div.welcome h1 {
    width: 50%;
    font-family: 'Alex Brush', Helvetica, Arial, sans-serif;
    font-size: 40px; 
-}
+}*/
 /* Links */
 a:link {
    text-decoration: none;
